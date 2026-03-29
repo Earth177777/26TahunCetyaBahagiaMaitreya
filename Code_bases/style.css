@@ -1,0 +1,287 @@
+@import url('Assets/fonts/noto.css');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Serif TC', serif; 
+    /* Deep slate premium background gradient */
+    background: radial-gradient(circle at center, #374151 0%, #111827 100%);
+    color: #e5e7eb;
+}
+
+/* --- LAYOUT WRAPPERS --- */
+.reader-container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 180px); /* More gap top and bottom */
+    margin-top: 90px;
+    padding: 0 60px; /* Guaranteed gap left and right */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px;
+}
+
+.book-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 860px; /* Scientifically restricted to fit 3x internal mathematical page ratios in standard Macbooks */
+    
+    /* Dynamic transform engine combining zoom and panning */
+    --zoom: 1;
+    --translate-x: 0%;
+    --pan-x: 0px;
+    --pan-y: 0px;
+    transform: translate(calc(var(--translate-x) + var(--pan-x)), var(--pan-y)) scale(var(--zoom));
+    transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.book-container.zoomed {
+    transition: transform 0.1s ease-out; /* Faster responsive panning */
+}
+
+.book-container.center-cover {
+    --translate-x: -25%;
+}
+.book-container.center-back-cover {
+    --translate-x: 25%;
+}
+
+#book {
+    /* Subtle outer shadow for the entire book */
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+/* Gesture Overlay for Panning */
+.zoom-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 50;
+    cursor: grab;
+}
+.book-container.zoomed .zoom-overlay {
+    display: block;
+}
+.zoom-overlay:active {
+    cursor: grabbing;
+}
+
+/* --- STPAGEFLIP PAGE STYLING --- */
+.my-page {
+    background-color: #fcfbf8; /* Warm off-white, paper aesthetics */
+    color: #2c2925;
+    overflow: hidden;
+    /* Inner shadow to simulate spine and rounded edges */
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.04), inset -1px 0 2px rgba(255,255,255,0.5);
+    border-left: 1px solid rgba(0,0,0,0.05);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.03) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.03) 100%);
+}
+
+/* Hard covers (thick cardstock) */
+.cover-page, .back-cover-page {
+    background-color: #f1ede3; 
+    box-shadow: inset 6px 0 30px rgba(0,0,0,0.1), inset -2px 0 5px rgba(255,255,255,0.5);
+    border-radius: 2px 6px 6px 2px;
+}
+
+/* Spine edge accent for covers */
+.cover-page::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 12px;
+    background: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.15) 100%);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+/* Vertical Text Typography */
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+.page-content {
+    padding: 50px 40px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content p {
+    text-indent: 2em;
+    line-height: 2.2;
+    font-size: 1.15rem;
+    letter-spacing: 0.05rem;
+    color: #3f3c37;
+    text-align: justify;
+}
+
+.page-content h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c2925;
+    margin-left: 15px; /* Spacing in vertical mode */
+}
+
+/* --- NAVIGATION ARROWS (Giant Side Controls) --- */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.05); /* very subtle */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255,255,255,0.6);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 50;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.nav-arrow:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+.nav-arrow.nav-prev { left: 4%; }
+.nav-arrow.nav-next { right: 4%; }
+
+
+/* --- TOP NAVBAR --- */
+.top-nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(17, 24, 39, 0.9), transparent);
+    pointer-events: none; /* Let clicks pass through except on children */
+}
+.top-nav > * {
+    pointer-events: auto; /* Re-enable clicks on header items */
+}
+.logo-area {
+    display: flex;
+    align-items: center;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* --- BOTTOM TOOLBAR (GLASSMORPHISM) --- */
+.bottom-toolbar {
+    position: fixed;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(31, 41, 55, 0.65); /* Sleek translucent dark */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+    border-radius: 28px; /* Pill shaped toolbar */
+    z-index: 100;
+    padding: 0 15px;
+    box-sizing: border-box;
+    color: rgba(255,255,255,0.7);
+}
+
+.toolbar-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.35rem;
+    cursor: pointer;
+    margin: 0 6px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toolbar-btn:hover {
+    color: white;
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 10px;
+}
+
+.page-indicator {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Mobile Adjustments - Perfect UI/UX */
+@media (max-width: 768px) {
+    .nav-arrow { display: none; }
+    
+    .top-nav { height: 50px; padding: 0 15px; }
+    .logo-area img { height: 35px; }
+    
+    .reader-container { 
+        height: calc(100vh - 130px); /* More gap top and bottom */
+        margin-top: 65px; 
+        padding: 0 20px; /* Beautiful gap left and right */
+        box-sizing: border-box;
+    }
+    
+    .bottom-toolbar { 
+        bottom: 10px;
+        padding: 0 5px; 
+        height: 50px;
+        width: 95%; /* Make it fill more on mobile */
+        border-radius: 15px;
+        justify-content: space-evenly;
+    }
+    .toolbar-btn { 
+        margin: 0 2px; 
+        font-size: 1.25rem; 
+        width: 36px; height: 36px;
+    }
+    .divider { margin: 0 5px; }
+    
+    .page-indicator { 
+        margin: 0 2px; 
+        font-size: 0.85rem; 
+        padding: 4px 10px;
+    }
+    .hide-on-mobile { display: none; }
+}

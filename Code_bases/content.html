@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebook - 1:1 Clone</title>
+    <!-- Local Icons -->
+    <link rel="stylesheet" href="Assets/fonts/phosphor.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header mimicking Maitreya site -->
+    <header class="top-nav">
+        <div class="logo-area" style="font-weight: 600; font-size: 1.2rem; letter-spacing: 0.1rem; color: #fff;">
+            紮根與深耕
+        </div>
+    </header>
+
+    <!-- Main Reader Area -->
+    <main class="reader-container">
+        <!-- Giant Side Arrows -->
+        <button class="nav-arrow nav-prev" title="Previous Page"><i class="ph ph-caret-left"></i></button>
+        
+        <div class="book-container">
+            <!-- StPageFlip mounts here -->
+            <div id="book">
+            </div>
+        </div>
+
+        <button class="nav-arrow nav-next" title="Next Page"><i class="ph ph-caret-right"></i></button>
+    </main>
+
+    <!-- Bottom Toolbar mimicking Maitreya site -->
+    <footer class="bottom-toolbar">
+        <button class="toolbar-btn" id="btn-sound" title="Sound On/Off"><i class="ph ph-speaker-high"></i></button>
+        <button class="toolbar-btn" id="btn-autoscroll" title="Autoscroll"><i class="ph ph-play"></i></button>
+        
+        <div class="divider hide-on-mobile"></div>
+        
+        <button class="toolbar-btn pagination-btn" id="btn-start" title="First Page"><i class="ph ph-arrow-line-left"></i></button>
+        <button class="toolbar-btn pagination-btn" id="btn-prev" title="Previous Page"><i class="ph ph-arrow-left"></i></button>
+        
+        <div class="page-indicator" title="Current Page">
+            <span id="current-page">1</span> &nbsp;/&nbsp; <span id="total-pages">-</span>
+        </div>
+        
+        <button class="toolbar-btn pagination-btn" id="btn-next" title="Next Page"><i class="ph ph-arrow-right"></i></button>
+        <button class="toolbar-btn pagination-btn" id="btn-end" title="Last Page"><i class="ph ph-arrow-line-right"></i></button>
+        
+        <div class="divider hide-on-mobile"></div>
+        
+        <button class="toolbar-btn hide-on-mobile" id="btn-zoom-in" title="Zoom In"><i class="ph ph-magnifying-glass-plus"></i></button>
+        <button class="toolbar-btn hide-on-mobile" id="btn-zoom-out" title="Zoom Out"><i class="ph ph-magnifying-glass-minus"></i></button>
+    </footer>
+
+    <!-- Local STPageFlip -->
+    <script src="Assets/page-flip.browser.js"></script>
+    <script src="content.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
