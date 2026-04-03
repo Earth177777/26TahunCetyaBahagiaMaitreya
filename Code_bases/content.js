@@ -1,18 +1,11 @@
 const bookConfig = {
     title: "26 Tahun Cetya Bahagia Maitreya",
-    favicon: "public/Assets/favicon.ico",
     headerText: "慧樂佛堂 - 26 Tahun Cetya Bahagia Maitreya",
     defaultFlipSound: "Assets/flip.mp3",
     autoFlipDelay: 3000,
     globalBackgroundAudio: "Audio/LAGU BaoGuiDeFoTang Lagu.mp3",
-    ogImage: "public/Pages/1.webp",
-    ogTitle: "慧樂佛堂 - 26 Tahun Cetya Bahagia Maitreya",
-    ogDescription: "26 Tahun Cetya Bahagia Maitreya 慧樂佛堂",
-    ogType: "website",
-    twitterCard: "summary_large_image",
     pageTitle: "26 Tahun Cetya Bahagia Maitreya",
     
-
 
     pages: [
         { type: "cover", src: "public/Pages/1.webp" },
