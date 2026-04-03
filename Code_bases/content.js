@@ -3,32 +3,33 @@ const bookConfig = {
     favicon: "public/Assets/favicon.ico",
     headerText: "My Digital Book",
     defaultFlipSound: "Assets/flip.mp3",
-    
-    // How many milliseconds to wait between pages when Auto-Flip is turned on (3000 = 3 seconds)
-    autoFlipDelay: 3000, 
-
+    autoFlipDelay: 3000,
     globalBackgroundAudio: "Audio/LAGU BaoGuiDeFoTang Lagu.mp3",
 
     pages: [
-        { type: "cover", src: "public/Pages/1.png" },
+        { type: "cover", src: "public/Pages/1.webp" },
 
-        { type: "page", src: "Assets/blank.png" },
+        { type: "page", src: "public/Pages/2.webp" },
 
-        { type: "page", src: "public/Pages/2.png" },
+        { type: "page", src: "public/Pages/3.webp" },
 
-        { type: "page", src: "public/Pages/3.png" },
+        { type: "page", src: "public/Pages/4.webp" },
 
-        { type: "page", src: "public/Pages/4.png" },
+        { type: "page", src: "public/Pages/5.webp" },
 
-        { type: "page", src: "public/Pages/5.png" },
+        { type: "page", src: "public/Pages/6.webp" },
 
-        { type: "page", src: "public/Pages/6.png" },
+        { type: "page", src: "public/Pages/7.webp" },
 
-        { type: "page", src: "public/Pages/7.png" },
+        { type: "page", src: "public/Pages/8.webp" },
 
-        { type: "blank-hard", src: "public/Pages/8.png" },
+        { type: "page", src: "public/Pages/9.webp" },
+        
+        { type: "page", src: "public/Pages/10.webp" },
 
-        { type: "back-cover" },
+        { type: "blank-hard", src: "public/Pages/11.webp" },
+
+        { type: "back-cover", src: "public/Pages/12.webp" },
     ]
 };
 
