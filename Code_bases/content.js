@@ -6,7 +6,7 @@ const bookConfig = {
     autoFlipDelay: 3000,
     globalBackgroundAudio: "Audio/LAGU BaoGuiDeFoTang Lagu.mp3",
     ogImage: "public/Pages/1.webp",
-    ogTitle: "慧樂佛堂 26 Tahun Cetya Bahagia Maitreya",
+    ogTitle: "慧樂佛堂 - 26 Tahun Cetya Bahagia Maitreya",
     ogDescription: "26 Tahun Cetya Bahagia Maitreya 慧樂佛堂",
     ogType: "website",
     twitterCard: "summary_large_image",

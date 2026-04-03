@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>26 Tahun Cetya Bahagia Maitreya</title>
-    <meta property="og:title" content="26 Tahun Cetya Bahagia Maitreya" />
-    <meta property="og:description" content="Buku digital interaktif - 26 Tahun Cetya Bahagia Maitreya 慧樂佛堂" />
-    <meta property="og:image" content="http://26tahuncetyamaitreyabahagia.uversstudio.com/Code_bases/public/Pages/1.png" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="http://26tahuncetyamaitreyabahagia.uversstudio.com/Code_bases/public/Pages/1.png" />
+    <title></title>
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:type" content="" />
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:image" content="" />
     <style>
         body,
         html {
@@ -32,6 +32,46 @@
 
 <body>
     <iframe src="Code_bases/content.html" title="Digital Book Content"></iframe>
+    <script src="Code_bases/content.js"></script>
+    <script>
+        // Update meta tags and title dynamically from bookConfig
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set page title
+            if (window.bookConfig && window.bookConfig.pageTitle) {
+                document.title = window.bookConfig.pageTitle;
+            }
+            
+            // Set OG meta tags
+            const metaMappings = {
+                'og:title': 'ogTitle',
+                'og:description': 'ogDescription',
+                'og:image': 'ogImage',
+                'og:type': 'ogType'
+            };
+            
+            Object.keys(metaMappings).forEach(property => {
+                const configKey = metaMappings[property];
+                const meta = document.querySelector(`meta[property="${property}"]`);
+                if (meta && window.bookConfig && window.bookConfig[configKey]) {
+                    meta.setAttribute('content', window.bookConfig[configKey]);
+                }
+            });
+            
+            // Set Twitter meta tags
+            const twitterMappings = {
+                'twitter:card': 'twitterCard',
+                'twitter:image': 'ogImage'  // Use same as OG image
+            };
+            
+            Object.keys(twitterMappings).forEach(name => {
+                const configKey = twitterMappings[name];
+                const meta = document.querySelector(`meta[name="${name}"]`);
+                if (meta && window.bookConfig && window.bookConfig[configKey]) {
+                    meta.setAttribute('content', window.bookConfig[configKey]);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
