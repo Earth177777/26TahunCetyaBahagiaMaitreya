@@ -1,7 +1,7 @@
 const bookConfig = {
     title: "26 Tahun Cetya Bahagia Maitreya",
-    favicon: "public/Assets/favicon.ico",
-    headerText: "My Digital Book",
+    favicon: "public/Assets/favicon.png",
+    headerText: "26 Tahun Cetya Bahagia Maitreya",
     defaultFlipSound: "Assets/flip.mp3",
     autoFlipDelay: 3000,
     globalBackgroundAudio: "Audio/LAGU BaoGuiDeFoTang Lagu.mp3",
